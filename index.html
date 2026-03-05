@@ -158,7 +158,7 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
 .home-hero-sub{font-size:15px;color:rgba(255,255,255,.65);letter-spacing:.5px}
 
 .home-body{flex:1;padding:48px 32px 56px;max-width:900px;margin:0 auto;width:100%}
-.home-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.home-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
 
 .home-card{
   background:var(--white);border-radius:12px;padding:36px 32px;cursor:pointer;
@@ -168,9 +168,11 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
 .home-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;transition:background .25s}
 .home-card.card-quote::before{background:var(--bg)}
 .home-card.card-invoice::before{background:var(--red)}
+.home-card.card-receipt::before{background:var(--gold)}
 .home-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-xl);border-color:var(--n300)}
 .home-card:hover.card-quote{border-color:var(--bg3)}
 .home-card:hover.card-invoice{border-color:rgba(224,78,56,.2)}
+.home-card:hover.card-receipt{border-color:rgba(201,168,76,.25)}
 
 .card-badge{
   display:inline-block;font-size:11px;letter-spacing:2px;font-weight:700;
@@ -178,6 +180,7 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
 }
 .card-quote .card-badge{background:var(--bg3);color:var(--bg)}
 .card-invoice .card-badge{background:rgba(224,78,56,.1);color:var(--red)}
+.card-receipt .card-badge{background:rgba(201,168,76,.12);color:var(--gold)}
 .card-title{font-family:'Noto Serif TC',serif;font-size:30px;font-weight:900;color:var(--n900);letter-spacing:3px;margin-bottom:10px}
 .card-desc{font-size:14px;color:var(--n600);line-height:1.8;letter-spacing:.3px}
 .card-features{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
@@ -189,6 +192,7 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
 }
 .card-quote .card-arrow{background:var(--bg3);color:var(--bg)}
 .card-invoice .card-arrow{background:rgba(224,78,56,.1);color:var(--red)}
+.card-receipt .card-arrow{background:rgba(201,168,76,.12);color:var(--gold)}
 .home-card:hover .card-arrow{transform:translateX(3px)}
 
 
@@ -246,7 +250,7 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
 
 /* ─── FORM PANEL ─── */
 .form-panel{
-  width:360px;flex-shrink:0;background:var(--white);
+  width:420px;flex-shrink:0;background:var(--white);
   border-right:1px solid var(--n300);overflow-y:auto;
 }
 .form-panel::-webkit-scrollbar{width:4px}
@@ -490,8 +494,8 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
 
 .doc-attach-sec{margin-top:18px}
 .attach-lbl-doc{font-size:10px;letter-spacing:2px;font-weight:700;text-transform:uppercase;padding:7px 0 5px;border-bottom:2px solid #1a3a6a;margin-bottom:10px;color:#1a3a6a}
-.attach-imgs-doc{display:flex;flex-wrap:wrap;gap:8px}
-.attach-img-doc{width:160px;height:115px;object-fit:cover;border:1px solid #c8d4e0;border-radius:3px}
+.attach-imgs-doc{display:flex;flex-direction:column;gap:10px}
+.attach-img-doc{width:100%;height:auto;max-height:340px;object-fit:contain;border:1px solid #c8d4e0;border-radius:3px;background:#f9f9f9}
 
 /* ═══════════════════════════════════════
    RWD BREAKPOINTS
@@ -505,7 +509,7 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
   .doc{max-width:100%}
   .main-nav{padding:0 20px}
   .home-body{padding:32px 20px 40px}
-  .home-cards{gap:16px}
+  .home-cards{gap:16px;grid-template-columns:1fr 1fr}
 }
 
 /* Mobile (max 767px) */
@@ -568,6 +572,7 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
   .page.active .doc-layout{display:block!important;background:white!important}
   .page.active .preview-panel{padding:0!important;background:white!important;overflow:visible!important}
   .doc{box-shadow:none!important;margin:0!important;width:100%!important;max-width:none!important}
+  .attach-img-doc{max-height:none!important;page-break-inside:avoid}
   @page{size:A4;margin:10mm}
 }
 
@@ -575,6 +580,7 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .anim-up{animation:fadeUp .4s ease both}
 .anim-up-d1{animation:fadeUp .4s .1s ease both;opacity:0}
+.anim-up-d2{animation:fadeUp .4s .2s ease both;opacity:0}
 </style>
 </head>
 <body>
@@ -605,7 +611,7 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
   <div class="home-hero">
     <div class="home-hero-eyebrow">Internal Portal · 內部行政系統</div>
     <h1 class="home-hero-title">請選擇<span>業務類型</span></h1>
-    <p class="home-hero-sub">製作報價單或請款單，支援 PDF 與 Excel 匯出</p>
+    <p class="home-hero-sub">製作報價單、請款單或收據單，支援 PDF 與 Excel 匯出</p>
   </div>
   <div class="home-body">
     <div class="home-cards">
@@ -623,6 +629,16 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
         <span class="card-badge">Payment Request</span>
         <div class="card-title">請款單</div>
         <div class="card-desc">外包請款，支援各事業體發布、附件稿上傳等</div>
+        <div class="card-features">
+          <span class="card-feature">Logo 自動切換</span><span class="card-feature">附件上傳</span>
+          <span class="card-feature">PDF 匯出</span><span class="card-feature">Excel 匯出</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="home-card card-receipt anim-up-d2" onclick="goPage('page-receipt')">
+        <span class="card-badge">Receipt</span>
+        <div class="card-title">收據單</div>
+        <div class="card-desc">開具收款收據，未稅計算，支援各事業體發布、附件稿上傳等</div>
         <div class="card-features">
           <span class="card-feature">Logo 自動切換</span><span class="card-feature">附件上傳</span>
           <span class="card-feature">PDF 匯出</span><span class="card-feature">Excel 匯出</span>
@@ -822,6 +838,7 @@ function goPage(id){
   window.scrollTo(0,0);
   if(id==='page-quote'&&!qInited){qInited=true;qInit();}
   if(id==='page-invoice'&&!iInited){iInited=true;iInit();}
+  if(id==='page-receipt'&&!rInited){rInited=true;rInit();}
 }
 function initRouter(){ if(!authed){goPage('page-login');}else{goPage('page-home');} }
 
@@ -1044,6 +1061,100 @@ function iReset(){if(!confirm('確定清空所有內容？'))return;localStorage
 function iSave(){try{localStorage.setItem('ysy_invoice',JSON.stringify({selectedCo:iSelectedCo,fields:['i_date','i_doc_no','i_category','i_category_custom','i_vendor','i_vendor_tel','i_vendor_email','i_vendor_addr','i_bank_name','i_bank_code','i_bank_account','i_custom_co'].reduce((o,id)=>({...o,[id]:gv(id)}),{}),projects:iProjects,items:iItems}));}catch(e){}}
 function iLoadStorage(){try{const raw=localStorage.getItem('ysy_invoice');if(!raw)return;const d=JSON.parse(raw);if(d.selectedCo)iSelectedCo=d.selectedCo;Object.entries(d.fields||{}).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v;});if(iSelectedCo==='custom')document.getElementById('i_custom_co_wrap').style.display='block';if(d.projects?.length){iProjects=d.projects;iRenderProj();}if(d.items?.length){iItems=d.items;iRenderItemsForm();}iRenderCoPicker();}catch(e){}}
 
+
+/* ══════════════════════
+   RECEIPT
+══════════════════════ */
+let rSelectedCo='ysy',rLogoStore={},rProjects=[],rItems=[],rAttachments=[],rInited=false;
+function rInit(){
+  document.getElementById('r_date').value=nowDate();
+  document.getElementById('r_doc_no').value=autoNo('R');
+  try{const s=localStorage.getItem('ysy_logos');if(s)rLogoStore=JSON.parse(s);}catch(e){}
+  rRenderCoPicker();rAddProject();rAddItem();rAddItem();rLoadStorage();rRender();
+}
+function rRenderCoPicker(){
+  document.getElementById('r_co_picker').innerHTML=COMPANIES.map(co=>`<button class="co-btn ${rSelectedCo===co.id?'selected':''}" onclick="rSelectCo('${co.id}')"><div class="co-dot" style="background:${co.color}">${rLogoStore[co.id]?`<img src="${rLogoStore[co.id]}" alt="">`:co.emoji}</div><div><div class="co-name-zh">${co.zh}</div><div class="co-name-en">${co.en}</div></div></button>`).join('');
+  rUpdateLogoArea();
+}
+function rSelectCo(id){rSelectedCo=id;document.getElementById('r_custom_co_wrap').style.display=id==='custom'?'block':'none';rRenderCoPicker();rRender();}
+function rUpdateLogoArea(){
+  const co=COMPANIES.find(c=>c.id===rSelectedCo)||COMPANIES[0];
+  const thumb=document.getElementById('r_logo_thumb'),ph=document.getElementById('r_logo_ph');
+  const lbl=document.getElementById('r_logo_lbl'),cb=document.getElementById('r_btn_clear');
+  lbl.textContent=`上傳「${co.zh}」Logo（選填）`;ph.style.background=co.color;ph.textContent=co.emoji||co.zh[0];
+  if(rLogoStore[co.id]){thumb.src=rLogoStore[co.id];thumb.style.display='block';ph.style.display='none';cb.style.display='inline-block';}
+  else{thumb.style.display='none';ph.style.display='flex';cb.style.display='none';}
+}
+function rHandleLogo(input){const file=input.files[0];if(!file)return;const r=new FileReader();r.onload=e=>{rLogoStore[rSelectedCo]=e.target.result;try{localStorage.setItem('ysy_logos',JSON.stringify(rLogoStore));}catch(ex){}rRenderCoPicker();rRender();};r.readAsDataURL(file);input.value='';}
+function rClearLogo(){delete rLogoStore[rSelectedCo];try{localStorage.setItem('ysy_logos',JSON.stringify(rLogoStore));}catch(e){}rRenderCoPicker();rRender();}
+function rCategoryChange(){
+  const sel=document.getElementById('r_category');
+  document.getElementById('r_category_custom_wrap').style.display=sel.value==='__custom__'?'block':'none';
+  rRender();
+}
+function rGetCategory(){
+  const sel=document.getElementById('r_category');
+  if(sel.value==='__custom__') return gv('r_category_custom')||'其他';
+  return sel.value;
+}
+function rAddProject(){rProjects.push({id:Date.now()+Math.random(),name:'',date:'',sender:''});rRenderProj();}
+function rRemoveProject(id){rProjects=rProjects.filter(p=>p.id!==id);rRenderProj();rRender();}
+function rUpdateProject(id,f,v){const p=rProjects.find(p=>p.id===id);if(p){p[f]=v;rRender();rSave();}}
+function rRenderProj(){
+  document.getElementById('r_proj_hdr').style.display=rProjects.length?'grid':'none';
+  document.getElementById('r_proj_rows').innerHTML=rProjects.map(p=>`<div class="proj-row-wrap"><div class="proj-row-fields"><input type="text" value="${esc(p.name)}" placeholder="專案名稱" oninput="if(!window.__imeComposing||!window.__imeComposing())rUpdateProject(${p.id},'name',this.value)"><input type="date" value="${esc(p.date)}" oninput="rUpdateProject(${p.id},'date',this.value)"><input type="text" value="${esc(p.sender)}" placeholder="安琪" oninput="if(!window.__imeComposing||!window.__imeComposing())rUpdateProject(${p.id},'sender',this.value)"></div><button class="btn-rm" onclick="rRemoveProject(${p.id})">×</button></div>`).join('');
+}
+function rAddItem(){rItems.push({id:Date.now()+Math.random(),name:'',content:'',price:'',qty:'1'});rRenderItemsForm();rRender();}
+function rRemoveItem(id){rItems=rItems.filter(i=>i.id!==id);rRenderItemsForm();rRender();}
+function rUpdateItem(id,f,v){const it=rItems.find(i=>i.id===id);if(it){it[f]=v;rRender();rSave();}}
+function rRenderItemsForm(){
+  document.getElementById('r_items_form').innerHTML=rItems.map((item,idx)=>`<div class="item-card"><div class="item-hdr"><span class="item-num-lbl">項目 ${idx+1}</span><button class="btn-rm" onclick="rRemoveItem(${item.id})">×</button></div><div class="item-grid-i"><div><div class="icol-lbl">項目名稱</div><input type="text" value="${esc(item.name)}" placeholder="例：禮盒設計" oninput="if(!window.__imeComposing||!window.__imeComposing())rUpdateItem(${item.id},'name',this.value)"></div><div><div class="icol-lbl">內容</div><input type="text" value="${esc(item.content)}" placeholder="視覺設計" oninput="if(!window.__imeComposing||!window.__imeComposing())rUpdateItem(${item.id},'content',this.value)"></div><div><div class="icol-lbl">單價</div><input type="number" value="${item.price}" min="0" oninput="rUpdateItem(${item.id},'price',this.value)" style="text-align:right"></div><div><div class="icol-lbl">數量</div><input type="number" value="${item.qty}" min="1" oninput="rUpdateItem(${item.id},'qty',this.value)" style="text-align:center"></div></div><div class="item-subtotal">小計：NT$ ${fmtN((parseFloat(item.price)||0)*(parseFloat(item.qty)||0))}</div></div>`).join('');
+}
+function rHandleAttach(input){const files=Array.from(input.files);let pending=files.length;if(!pending)return;files.forEach(file=>{const r=new FileReader();r.onload=e=>{rAttachments.push({name:file.name,dataUrl:e.target.result});pending--;if(!pending){rRenderAttachGrid();rRender();}};r.readAsDataURL(file);});input.value='';}
+function rRemoveAttach(idx){rAttachments.splice(idx,1);rRenderAttachGrid();rRender();}
+function rRenderAttachGrid(){document.getElementById('r_attach_grid').innerHTML=rAttachments.map((a,i)=>`<div class="attach-thumb"><img src="${a.dataUrl}" alt="${esc(a.name)}"><button class="attach-rm" onclick="rRemoveAttach(${i})">×</button></div>`).join('');}
+function rRender(){
+  const co=COMPANIES.find(c=>c.id===rSelectedCo)||COMPANIES[0];
+  const coName=rSelectedCo==='custom'?(gv('r_custom_co')||'其他公司'):co.zh;
+  const coEn=rSelectedCo==='custom'?'':co.en;
+  const coLogo=rLogoStore[rSelectedCo];
+  const subtotal=rItems.reduce((s,i)=>s+(parseFloat(i.price)||0)*(parseFloat(i.qty)||0),0);
+  const logoHtml=coLogo?`<img class="idoc-logo-img" src="${coLogo}" alt="${esc(coName)}">`:`<div class="idoc-logo-fallback"><div class="idoc-logo-dot" style="background:${co.color}">${co.emoji||coName[0]}</div><div><div class="idoc-co-zh">${esc(coName)}</div>${coEn?`<div class="idoc-co-en">${esc(coEn)}</div>`:''}</div></div>`;
+  document.getElementById('r_doc').innerHTML=`
+    <div class="idoc-hdr" style="background:${co.color}">
+      <div>${logoHtml}</div>
+      <div class="idoc-title-area"><div class="idoc-type-lbl">${esc(rGetCategory())}</div><div class="idoc-title" style="color:rgba(255,255,255,.9)">收據單</div></div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-2col-b">
+        <div class="info-left-b"><div class="info-blk-title">收款方</div><div class="il"><strong>單位：</strong>${esc(gv('r_payee')||'─')}</div>${gv('r_payee_tel')?`<div class="il"><strong>TEL：</strong>${esc(gv('r_payee_tel'))}</div>`:''}${gv('r_payee_email')?`<div class="il"><strong>EMAIL：</strong>${esc(gv('r_payee_email'))}</div>`:''}${gv('r_payee_addr')?`<div class="il"><strong>ADD：</strong>${esc(gv('r_payee_addr'))}</div>`:''}</div>
+        <div class="info-right-b"><div class="info-blk-title">單據資訊</div><div class="il"><strong>收據日期</strong>　${esc(gv('r_date')||'─')}</div><div class="il"><strong>文件編號</strong>　${esc(gv('r_doc_no')||'─')}</div></div>
+      </div>
+      ${rProjects.length?`<div class="doc-sec-title sec-blue">專案摘要</div><table class="doc-tbl tbl-blue" style="margin-bottom:13px"><tr><th style="width:50%">專案計畫</th><th style="width:25%">交件日</th><th style="width:25%">發包者</th></tr>${rProjects.map(p=>`<tr><td class="tbl-item-blue">${esc(p.name)||'─'}</td><td>${esc(p.date)||'─'}</td><td>${esc(p.sender)||'─'}</td></tr>`).join('')}</table>`:''}
+      <div class="doc-sec-title sec-blue${rProjects.length?' sec-mt':''}" style="color:#8a6e1f;border-left-color:var(--gold)">項目明細</div>
+      <table class="doc-tbl tbl-blue"><tr><th style="width:28%">項目</th><th style="width:32%">內容</th><th style="width:14%">單價</th><th style="width:10%">數量</th><th style="width:16%">金額</th></tr>${rItems.map(it=>{const amt=(parseFloat(it.price)||0)*(parseFloat(it.qty)||0);return`<tr><td class="tbl-item-blue">${esc(it.name)||'─'}</td><td style="color:#555">${esc(it.content)||'─'}</td><td class="tbl-money">${fmtN(parseFloat(it.price)||0)}</td><td class="tbl-num">${it.qty||1}</td><td class="tbl-money" style="font-weight:700">${fmtN(amt)}</td></tr>`;}).join('')}</table>
+      <div class="total-bar-doc" style="background:var(--gold)"><span class="tbar-lbl-doc">合計金額（未稅）</span><span class="tbar-amt-doc">NT$ ${fmtN(subtotal)}</span></div>
+      ${rAttachments.length?`<div class="doc-attach-sec"><div class="attach-lbl-doc">附件圖稿</div><div class="attach-imgs-doc">${rAttachments.map(a=>`<img class="attach-img-doc" src="${a.dataUrl}" alt="${esc(a.name)}">`).join('')}</div></div>`:''}
+    </div>`;
+  rSave();
+}
+function rExportPDF(){window.print();}
+function rExportExcel(){
+  const co=COMPANIES.find(c=>c.id===rSelectedCo)||COMPANIES[0];
+  const coName=rSelectedCo==='custom'?gv('r_custom_co'):co.zh;
+  const subtotal=rItems.reduce((s,i)=>s+(parseFloat(i.price)||0)*(parseFloat(i.qty)||0),0);
+  let csv='\uFEFF收據單\n';
+  csv+=`發包公司,${coName}\n收據日期,${gv('r_date')}\n文件編號,${gv('r_doc_no')}\n類別,${rGetCategory()}\n收款單位,${gv('r_payee')}\n\n`;
+  if(rProjects.length){csv+=`專案摘要\n專案計畫,交件日,發包者\n`;rProjects.forEach(p=>{csv+=`"${p.name}","${p.date}","${p.sender}"\n`;});csv+='\n';}
+  csv+=`項目明細\n項目,內容,單價,數量,金額\n`;
+  rItems.forEach(i=>{const amt=(parseFloat(i.price)||0)*(parseFloat(i.qty)||0);csv+=`"${i.name}","${i.content}",${i.price||0},${i.qty||1},${amt}\n`;});
+  csv+=`\n合計（未稅）,,,,${subtotal}\n`;
+  dlCSV(csv,`收據單_${gv('r_doc_no')}_${gv('r_date')}.csv`);
+}
+function rReset(){if(!confirm('確定清空所有內容？'))return;localStorage.removeItem('ysy_receipt');rProjects=[];rItems=[];rAttachments=[];rInit();}
+function rSave(){try{localStorage.setItem('ysy_receipt',JSON.stringify({selectedCo:rSelectedCo,fields:['r_date','r_doc_no','r_category','r_category_custom','r_payee','r_payee_tel','r_payee_email','r_payee_addr','r_custom_co'].reduce((o,id)=>({...o,[id]:gv(id)}),{}),projects:rProjects,items:rItems}));}catch(e){}}
+function rLoadStorage(){try{const raw=localStorage.getItem('ysy_receipt');if(!raw)return;const d=JSON.parse(raw);if(d.selectedCo)rSelectedCo=d.selectedCo;Object.entries(d.fields||{}).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v;});if(rSelectedCo==='custom')document.getElementById('r_custom_co_wrap').style.display='block';if(d.fields?.r_category==='__custom__')document.getElementById('r_category_custom_wrap').style.display='block';if(d.projects?.length){rProjects=d.projects;rRenderProj();}if(d.items?.length){rItems=d.items;rRenderItemsForm();}rRenderCoPicker();}catch(e){}}
+
 /* ── START ── */
 /* ── GLOBAL IME-SAFE INPUT DELEGATION ── */
 // 解決中文/注音輸入法在 oninput 觸發問題
@@ -1069,5 +1180,87 @@ window.addEventListener('DOMContentLoaded',()=>{
   initRouter();
 });
 </script>
+
+<!-- ═══ RECEIPT ═══ -->
+<div id="page-receipt" class="page">
+  <nav class="main-nav">
+    <div class="nav-logo"><img src="LOGO_WHITE_PLACEHOLDER" alt="曜森原"></div>
+    <div class="nav-actions">
+      <button class="nav-logout" onclick="doLogout()">登出</button>
+    </div>
+  </nav>
+  <div class="doc-subnav">
+    <button class="doc-back-btn" onclick="goPage('page-home')">← 返回</button>
+    <span class="doc-page-title" style="color:var(--gold)">收據單</span>
+    <span class="doc-nav-tag" style="background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.3)">RECEIPT</span>
+    <span class="doc-nav-spacer"></span>
+  </div>
+  <div class="doc-toolbar">
+    <span class="tbar-lbl">匯出</span>
+    <button class="btn-exp btn-pdf" onclick="rExportPDF()">📄 匯出 PDF</button>
+    <button class="btn-exp btn-xls" onclick="rExportExcel()">📊 匯出 Excel</button>
+    <button class="btn-exp btn-rst" onclick="rReset()">↺ 清空</button>
+    <span class="tbar-note">資料暫存於此瀏覽器</span>
+  </div>
+  <div class="doc-layout">
+    <div class="form-panel">
+      <div class="form-inner">
+        <div class="sec-hdr" style="background:rgba(201,168,76,.1);color:#8a6e1f;border-left:3px solid var(--gold)">發包公司</div>
+        <div class="co-section">
+          <div class="co-picker" id="r_co_picker"></div>
+          <div class="fld" id="r_custom_co_wrap" style="display:none">
+            <label>自訂公司名稱</label><input id="r_custom_co" placeholder="公司名稱" oninput="if(window.__imeComposing&&window.__imeComposing())return;rRender()">
+          </div>
+          <div class="logo-upload-area">
+            <label class="logo-upload-lbl" id="r_logo_lbl">上傳 Logo（選填）</label>
+            <div class="logo-preview-row">
+              <div class="logo-ph" id="r_logo_ph"></div>
+              <img id="r_logo_thumb" style="display:none;height:48px;width:auto;max-width:120px;object-fit:contain;border-radius:4px">
+              <label class="btn-logo-upload">選擇圖片<input type="file" accept="image/*" style="display:none" onchange="rHandleLogo(this)"></label>
+              <button class="btn-logo-clear" id="r_btn_clear" style="display:none" onclick="rClearLogo()">✕ 移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="sec-hdr" style="background:rgba(201,168,76,.1);color:#8a6e1f;border-left:3px solid var(--gold)">單據資訊</div>
+        <div class="fld-r2">
+          <div class="fld"><label>收據日期</label><input type="date" id="r_date" oninput="rRender()"></div>
+          <div class="fld"><label>文件編號</label><input id="r_doc_no" oninput="if(window.__imeComposing&&window.__imeComposing())return;rRender()"></div>
+        </div>
+        <div class="fld">
+          <label>類別標籤</label>
+          <select id="r_category" onchange="rCategoryChange()">
+            <option>收款收據</option><option>服務收據</option><option>設計收據</option><option value="__custom__">自訂…</option>
+          </select>
+        </div>
+        <div class="fld" id="r_category_custom_wrap" style="display:none">
+          <label>自訂類別</label><input id="r_category_custom" placeholder="自訂類別名稱" oninput="rRender()">
+        </div>
+        <div class="sec-hdr" style="background:rgba(201,168,76,.1);color:#8a6e1f;border-left:3px solid var(--gold)">收款方資訊</div>
+        <div class="fld"><label>單位名稱</label><input id="r_payee" placeholder="例：曜森原行銷有限公司" oninput="if(window.__imeComposing&&window.__imeComposing())return;rRender()"></div>
+        <div class="fld-r2">
+          <div class="fld"><label>電話</label><input id="r_payee_tel" oninput="if(window.__imeComposing&&window.__imeComposing())return;rRender()"></div>
+          <div class="fld"><label>Email</label><input id="r_payee_email" oninput="if(window.__imeComposing&&window.__imeComposing())return;rRender()"></div>
+        </div>
+        <div class="fld"><label>地址</label><input id="r_payee_addr" oninput="if(window.__imeComposing&&window.__imeComposing())return;rRender()"></div>
+        <div class="sec-hdr" style="background:rgba(201,168,76,.1);color:#8a6e1f;border-left:3px solid var(--gold)">專案摘要</div>
+        <div class="proj-hdr-wrap">
+          <div class="proj-row-hdr" id="r_proj_hdr" style="display:none"><span>專案計畫</span><span>交件日</span><span>發包者</span></div>
+          <div id="r_proj_rows"></div>
+        </div>
+        <button class="btn-add" onclick="rAddProject()">＋ 新增專案</button>
+        <div class="sec-hdr" style="background:rgba(201,168,76,.1);color:#8a6e1f;border-left:3px solid var(--gold)">項目明細</div>
+        <div id="r_items_form"></div>
+        <button class="btn-add" onclick="rAddItem()">＋ 新增項目</button>
+        <div class="sec-hdr" style="background:rgba(201,168,76,.1);color:#8a6e1f;border-left:3px solid var(--gold)">附件圖稿</div>
+        <div class="attach-area">
+          <label class="btn-attach">＋ 上傳圖稿<input type="file" accept="image/*" multiple style="display:none" onchange="rHandleAttach(this)"></label>
+          <div class="attach-grid" id="r_attach_grid"></div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-panel"><div class="doc" id="r_doc"></div></div>
+  </div>
+</div>
+
 </body>
 </html>
