@@ -566,13 +566,28 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
 @media print{
   body{background:white!important}
   #page-login,#page-home{display:none!important}
+  .page.active .main-nav{display:none!important}
   .page.active .doc-subnav,
   .page.active .doc-toolbar,
   .page.active .form-panel{display:none!important}
   .page.active .doc-layout{display:block!important;background:white!important}
   .page.active .preview-panel{padding:0!important;background:white!important;overflow:visible!important}
   .doc{box-shadow:none!important;margin:0!important;width:100%!important;max-width:none!important}
-  .attach-img-doc{max-height:none!important;page-break-inside:avoid}
+  /* Bug 2: 強制輸出背景色與背景圖 */
+  .qdoc-hdr,.idoc-hdr,.tbl-green th,.tbl-blue th,.total-bar-doc,.tri.grand,.tbar-amt-doc,.tbar-lbl-doc{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+    color-adjust:exact!important;
+  }
+  /* Bug 3: 確保附件圖片正常顯示 */
+  .attach-img-doc{
+    max-height:none!important;
+    page-break-inside:avoid;
+    display:block!important;
+    width:100%!important;
+  }
+  .doc-attach-sec{display:block!important}
+  .attach-imgs-doc{display:flex!important;flex-direction:column!important}
   @page{size:A4;margin:10mm}
 }
 
