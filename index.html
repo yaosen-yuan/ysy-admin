@@ -588,6 +588,11 @@ body{min-height:100vh;background:var(--n100);font-family:'Noto Sans TC',sans-ser
   }
   .doc-attach-sec{display:block!important}
   .attach-imgs-doc{display:flex!important;flex-direction:column!important}
+  /* Bug 4: 強制維持雙欄佈局，覆蓋 RWD 媒體查詢的折疊 */
+  .doc-2col{display:grid!important;grid-template-columns:1fr 1fr!important;gap:16px!important;}
+  .doc-2col-b{display:grid!important;grid-template-columns:1fr 1fr!important;gap:0!important;}
+  .doc-bottom{display:grid!important;grid-template-columns:1fr auto!important;}
+  .client-blk{border-left:4px solid var(--bg)!important;border-top:none!important;border-radius:0 4px 4px 0!important;}
   @page{size:A4;margin:10mm}
 }
 
